@@ -1,6 +1,6 @@
 function [c, ceq, gradc, gradceq] = constraintsglarma(para, Y, X, phi_lags, theta_lags, link)
 
-% version 1.1.0
+% version 1.1.1
 
 % used in conjunction with spglarma.m ver 1.1.0
 
@@ -146,6 +146,6 @@ else % do not compute gradients if not requested
     outn = 1 - nnorm ;      % outn is a horiztonal vector
     outarma = transpose(Z)- transpose(Zc);            % arma constraints
     c=[];                   % no inequality constraints
-    ceq=[outm outn outarma oute];        % mean and normalization constraints
+    ceq=[outm outn outarma];        % mean and normalization constraints
 end;
 end
