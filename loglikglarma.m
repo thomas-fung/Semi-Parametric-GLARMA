@@ -1,7 +1,7 @@
 function [l, gradl] = loglikglarma(para, Y, X, phi_lags, theta_lags)
 
-% ver 1.0.0
-% used in conjunction with spglarma.m ver 1.0.0
+% ver 1.1.0
+% used in conjunction with spglarma.m ver 1.1.0
 
 % This function acts as the objective function of the sp glarma algorithm, outputs:
 % l = negative loglikelihood
@@ -19,12 +19,12 @@ function [l, gradl] = loglikglarma(para, Y, X, phi_lags, theta_lags)
 % y is a vertical n-vector, x is a n by p matrix
 n = length(Y) ;
 rsq = size(X,2)+ length(phi_lags)+ length(theta_lags); 
-logp = para(rsq+2*n+1:rsq+3*n) ;          %log probability vector
-b = para(rsq+3*n+1: rsq+4*n) ;        %normalizing constants
-xi =para(rsq+4*n+1:rsq+5*n) ;    %tilt values
+logp = para(rsq+n+1:rsq+2*n) ;          %log probability vector
+b = para(rsq+2*n+1: rsq+3*n) ;        %normalizing constants
+xi =para(rsq+3*n+1:rsq+4*n) ;    %tilt values
 l = -sum(logp + b + xi.*Y') ;
 if nargout > 1 
-    gradl = [zeros(rsq+2*n,1); -ones(n,1) ; -ones(n,1) ; -Y]; 
+    gradl = [zeros(rsq+n,1); -ones(n,1) ; -ones(n,1) ; -Y];
     % vertical vector of gradients
 end;
 end 

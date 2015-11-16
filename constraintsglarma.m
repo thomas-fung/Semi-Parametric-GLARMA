@@ -1,8 +1,8 @@
 function [c, ceq, gradc, gradceq] = constraintsglarma(para, Y, X, phi_lags, theta_lags, link)
 
-% version 1.0.0
+% version 1.1.0
 
-% used in conjunction with spglarma.m ver 1.0.0
+% used in conjunction with spglarma.m ver 1.1.0
 
 % This function computes the mean and normalization constraints for spglarma.m, outputs:
 % c = [] always as we do not have any inequality constraints
@@ -23,7 +23,7 @@ function [c, ceq, gradc, gradceq] = constraintsglarma(para, Y, X, phi_lags, thet
 % getting the size of various vectors/matrices
 n = length(Y) ;
 r = size(X,2) ;
-s = length(phi_lags); % number of AR component 
+s = length(phi_lags); % number of AR component
 q = length(theta_lags); % number of MA component
 beta = para(1:r)' ; %mean parameters
 rsq = r+s+q;
@@ -36,11 +36,10 @@ else
     theta = para(r+1:r+q); % MA parameters/ no AR parameters
 end
 Z = para(rsq+1:rsq+n)'; % ARMA component parameters
-e = para(rsq+n+1:rsq+2*n)'; % residuals parameters
-p = exp(para(rsq+2*n+1:rsq+3*n)) ;        %probability vector
-b = para(rsq+3*n+1:rsq+4*n) ;        %normalizing constants
-xi =para(rsq+4*n+1:rsq+5*n) ;    %tilt values
-if s>0 && q <=0 
+p = exp(para(rsq+n+1:rsq+2*n)) ;        %probability vector
+b = para(rsq+2*n+1:rsq+3*n) ;        %normalizing constants
+xi =para(rsq+3*n+1:rsq+4*n) ;    %tilt values
+if s>0 && q <=0
     msq = phi_lags(s);
 elseif s<=0 && q>0
     msq = theta_lags(q);
@@ -49,22 +48,6 @@ else
 end
 nmsq = n+msq;
 
-%Setting up the ARMA constraints;
-Ztime = [zeros(msq,1); Z];
-Zc = zeros(n,1);
-etime = [zeros(msq,1);e];
-
-if(s > 0) 
-              for i = 1:s
-                    Zc = Zc + phi(i) .* (Ztime(msq+1- phi_lags(i):nmsq-phi_lags(i))+etime(msq+1-phi_lags(i):nmsq-phi_lags(i)));
-                end
-            end
-       
-            if(q > 0) 
-                for i = 1:q
-            		Zc = Zc + theta(i) * etime(msq+1-theta_lags(i):nmsq - theta_lags(i));
-                end
-            end
 
 
 % mean values under beta and test constraints
@@ -84,13 +67,33 @@ mmu = zeros(1,n);
 nnorm = zeros(1,n) ;
 phat = ones(n, n);
 Varhat = ones(n,1);
-    for i=1:n
-        phat(i,:) = p.*exp(b(i)+xi(i)*Y');
-        Varhat(i) = phat(i,:)*((Y-mu(i)).^2) ;
-    end;
+for i=1:n
+    phat(i,:) = p.*exp(b(i)+xi(i)*Y');
+    Varhat(i) = phat(i,:)*((Y-mu(i)).^2) ;
+end;
 sdhat = sqrt(Varhat) ;
 
+% calculate pearson residuals
+e = (Y-mu)./sdhat;
 
+%Setting up the ARMA constraints;
+Ztime = [zeros(msq,1); Z];
+Zc = zeros(n,1);
+etime = [zeros(msq,1);e];
+
+if(s > 0)
+    for i = 1:s
+        Zc = Zc + phi(i) .* (Ztime(msq+1- phi_lags(i):nmsq-phi_lags(i))+etime(msq+1-phi_lags(i):nmsq-phi_lags(i)));
+    end
+end
+                           
+if(q > 0)
+    for i = 1:q
+        Zc = Zc + theta(i) * etime(msq+1-theta_lags(i):nmsq - theta_lags(i));
+    end
+end
+                           
+                           
 % compute mean, norm constraints and their gradients (if requested)
 if nargout > 2
     % This part of the program is not working. NEVER request nargout>2.
@@ -142,7 +145,6 @@ else % do not compute gradients if not requested
     outm =transpose(mu)-mmu ; % outm is a horizontal vector
     outn = 1 - nnorm ;      % outn is a horiztonal vector
     outarma = transpose(Z)- transpose(Zc);            % arma constraints
-    oute = transpose(e)-transpose((Y-mu)./sdhat); % residual constraints
     c=[];                   % no inequality constraints
     ceq=[outm outn outarma oute];        % mean and normalization constraints
 end;

@@ -1,6 +1,6 @@
 function [delta, maxloglik, fitted, iter, phat, sdhat] = spglarma(Y, X, phi_lags, theta_lags,link)
 
-% version 1.0.0
+% version 1.1.0
 
 % fits sp glarma with pearson residuals, outputs:
 % delta = estimates of beta, ARMA coefficients
@@ -31,8 +31,7 @@ rsq = r+s+q;
 
 
 % initial estimates
-[beta0, ~, fitted, ~, ~, sdhat] = spglm4(Y,X,link, 0); % initial beta estimates provided by AH's spglm algorithm
-e0 = (Y - fitted)./sdhat; % initial pearson residuals estimates using beta only
+[beta0, ~, fitted, ~, ~, sdhat] = spglm4(Y,X,link, 0); %initial beta estimates provided by AH's spglm algorithm
 phitheta0 = zeros(1,s+q);  % initial phi and theta estimates
 Z0 = zeros(1, n); %initial Z estimates;
 p0 = ones(1, n)/n ;                 % initial probabilities
@@ -40,14 +39,15 @@ logp0 = log(p0) ;                   % initial log probabilities
 b0 = zeros(1, n) ;                  % initial normalizations
 xi0 = zeros(1, n) ;              % initial tilts
 
+
 % initiates the objective & constraint functions
 ell = @(para)loglikglarma(para, Y, X, phi_lags, theta_lags) ;  % passing data to loglik function
 conn = @(para)constraintsglarma(para, Y, X, phi_lags, theta_lags,link) ; %passing data to constraints
-para0 = [beta0' phitheta0 Z0 e0' logp0 b0 xi0]; % initial param values
+para0 = [beta0' phitheta0 Z0 logp0 b0 xi0]; % initial param values
     
 
 % fit the model
-options = optimset('MaxFunEvals',1e5, 'MaxIter', 1e5, 'TolFun', 1e-8, 'TolCon', 1e-8, 'TolX', 1e-8, 'Algorithm', 'interior-point', 'Display', 'off', 'GradConstr', 'off', 'GradObj', 'on') ;
+options = optimset('MaxFunEvals',1e5, 'MaxIter', 1e5, 'TolFun', 1e-8, 'TolCon', 1e-8, 'TolX', 1e-8, 'Algorithm', 'interior-point', 'Display', 'off', 'GradConstr', 'off', 'GradObj', 'on');
 [param, fvalue, exitflag, output, ~, ~, ~]=fmincon(ell, para0, [], [], [], [], [], [], conn, options) ;
 
 % convergence diagnostics
