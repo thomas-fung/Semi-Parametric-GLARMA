@@ -10,7 +10,11 @@ An `R` package `spglarma` is currently under development and will be released on
 ## Installation
 The implmentation is based around using the `fmincon` function of `Matlab`'s optimization toolbox. Saved the following m-files into a working directory: `spglarma`, `spglarmapearson`, `spglarmascore`, `loglikglarma`, `constraintsglarmapearson`, `constraintsglarmascore`, `plotspglarma`, `SPPIT_hist`, `spglm4`, `loglik4`, `constraints4` and then you are good to go.  
 
-A more detailed examples can be found in 
+## Citation
+
+If you use this  to analyse your data, please use the following citation:
+
+- Huang, A. and Fung, T. (2016). Semiparametric generalized linear models for time-series data. arXiv:1603.02802.
 
 ## Polio Example 
 
@@ -24,7 +28,7 @@ This data set gives the monthly number of cases of poliomyelitis in the U.S. for
 
 A csv file containing the following columns:
 
-[:, 1]	Cases	monthly number of cases of poliomyelitis.
+- [:, 1]	Cases	monthly number of cases of poliomyelitis.
 
 [:, 2]	Intcpt,	a vector of ones, providing the intercept in the model.
 
