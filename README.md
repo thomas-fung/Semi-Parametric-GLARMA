@@ -16,11 +16,11 @@ A more detailed examples can be found in
 
 Cases of Poliomyelitis in the U.S.
 
-Description
+### Description
 
 This data set gives the monthly number of cases of poliomyelitis in the U.S. for the years 1970–1983 as reported by the Center for Disease Control. The polio data frame has 168 rows and 8 columns.
 
-Format
+### Format
 
 A csv file containing the following columns:
 
@@ -32,12 +32,12 @@ A csv file containing the following columns:
 [:, 6]	CosSemiAnnual	cosine harmonics at periods of 6.
 [:, 7]	SinSemiAnnual	sine harmonics at periods of 6.
 
-Source
+### Source
 
 Zeger, S.L (1988) A regression model for time series of counts. Biometrika, 75, 621–629.
 
-
-% MA(1,2,5), Log link, Pearson Residuals
+### Sample code
+To fit a model with MA(1,2,5), Log link, Pearson Residuals
 ```s
 polio = csvread('./Data/polio.csv',1,2);
 Y = polio(:,1);
