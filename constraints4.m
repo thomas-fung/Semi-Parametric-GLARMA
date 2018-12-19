@@ -1,4 +1,4 @@
-function [c, ceq, gradc, gradceq] = constraints4(para, x, y, link, tests)
+function [c, ceq, gradc, gradceq] = constraints4(para, x, y, link)
 % computes the mean and normalization constraints
 % y is a vertical n-vector, x is a n by p matrix
 
@@ -11,13 +11,13 @@ theta =para(q+2*n+1:q+3*n) ;    %tilt values
 
 % mean values under beta and test constraints
 if  strcmp(link,'id')
-    mu = x*beta + tests; 
+    mu = x*beta; 
 elseif  strcmp(link,'log')
-    mu = exp(x*beta + tests);
+    mu = exp(x*beta);
 elseif  strcmp(link,'inv')
-    mu = 1./(x*beta + tests);
+    mu = 1./(x*beta);
 elseif  strcmp(link,'logit')
-    mu = exp(x*beta+tests)./(1+exp(x*beta+tests)) ; 
+    mu = exp(x*beta)./(1+exp(x*beta)) ; 
 end;
 
 % to store mean and norm constraints
