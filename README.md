@@ -8,14 +8,14 @@ Currently only the 'log' link option is fully tested. There are plans to impleme
 An `R` package `spglarma` is currently under development and will be released on github and cran shortly to accompany an updated version of the paper.
 
 ## Installation
-The implmentation is based around using the `fmincon` function of `Matlab`'s optimization toolbox. Saved the following m-files into a working directory: `spglarma`, `spglarmapearson`, `spglarmascore`, `loglikglarma`, `constraintsglarmapearson`, `constraintsglarmascore`, `plotspglarma`, `SPPIT_hist`, `spglm4`, `loglik4`, `constraints4` and then you are good to go.  
+This implmentation is based around using the `fmincon` function of `Matlab`'s optimization toolbox. Saved the following m-files into a working directory: `spglarma`, `spglarmapearson`, `spglarmascore`, `loglikglarma`, `constraintsglarmapearson`, `constraintsglarmascore`, `plotspglarma`, `SPPIT_hist`, `spglm4`, `loglik4`, `constraints4` and then you are good to go.  
 
 ## Citation
 
-If you use this  to analyse your data, please use the following citation:
+If you use these code to analyse your data, please use the following citation:
 
 - Huang, A. and Fung, T. (2016). Semiparametric generalized linear models for time-series data. arXiv:1603.02802.
-
+ 
 ## Polio Example 
 
 Cases of Poliomyelitis in the U.S.
