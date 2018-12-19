@@ -1,9 +1,0 @@
-spglarma 1.1.0 [2015-11-16]
----------------------------
-
-* Remove residuals as a parameters to improve performance
-
-spglarma 1.0.0 [2015-11-15]
----------------------------
-
-* First version to GitHub
