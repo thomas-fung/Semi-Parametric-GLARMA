@@ -24,13 +24,13 @@ This data set gives the monthly number of cases of poliomyelitis in the U.S. for
 
 A csv file containing the following columns:
 
-[:, 1]	Cases	monthly number of cases of poliomyelitis.
-[:, 2]	Intcpt	a vector of ones, providing the intercept in the model.
-[:, 3]	Trend	a linear trend.
-[:, 4]	CosAnnual	cosine harmonics at periods of 12.
-[:, 5]	SinAnnual	sine harmonics at periods of 12.
-[:, 6]	CosSemiAnnual	cosine harmonics at periods of 6.
-[:, 7]	SinSemiAnnual	sine harmonics at periods of 6.
+  [:, 1]	Cases	monthly number of cases of poliomyelitis.
+  [:, 2]	Intcpt	a vector of ones, providing the intercept in the model.
+  [:, 3]	Trend	a linear trend.
+  [:, 4]	CosAnnual	cosine harmonics at periods of 12.
+  [:, 5]	SinAnnual	sine harmonics at periods of 12.
+  [:, 6]	CosSemiAnnual	cosine harmonics at periods of 6.
+  [:, 7]	SinSemiAnnual	sine harmonics at periods of 6.
 
 ### Source
 
