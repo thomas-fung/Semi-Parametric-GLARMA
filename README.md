@@ -1,13 +1,11 @@
 # Semi-Parametric-GLARMA
-A semi-parametric method for GLARMA type model in Time Series Analysis
+## A semi-parametric method for GLARMA type model in Time Series Analysis (Matlab Version)
 
-The MATLAB function spglarma is used to fit generalized linear autoregressive moving average (GLARMA) models using Pearson residuals whereas the underlying distribution will be estimated from the data with the empirical likelihood approach. The one function therefore will work for discrete, continuous and binary response. 
+The MATLAB function spglarma is used to fit generalized linear autoregressive moving average (GLARMA) models using Pearson or Score-type residuals whereas the underlying distribution will be estimated from the data with the empirical likelihood approach. 
 
-User can also specify what link they would like to use and currently the options are identity, log, inverse and logit links.
+Currently only the 'log' link option is fully tested. There are plans for identity, inverse and logit links as well. 
 
-
-
-Example Polio 
+## Example Polio 
 
 Cases of Poliomyelitis in the U.S.
 
