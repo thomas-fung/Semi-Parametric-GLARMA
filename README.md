@@ -1,11 +1,18 @@
 # Semi-Parametric-GLARMA
 ## A semi-parametric method for GLARMA type model in Time Series Analysis (Matlab Version)
 
-The MATLAB function spglarma is used to fit generalized linear autoregressive moving average (GLARMA) models using Pearson or Score-type residuals whereas the underlying distribution will be estimated from the data with the empirical likelihood approach. 
+The MATLAB function `spglarma` is used to fit generalized linear autoregressive moving average (GLARMA) models using Pearson or Score-type residuals whereas the underlying distribution will be estimated from the data with the empirical likelihood approach of [Huang and Fung (2016)](https://arxiv.org/abs/1603.02802). 
 
-Currently only the 'log' link option is fully tested. There are plans for identity, inverse and logit links as well. 
+Currently only the 'log' link option is fully tested. There are plans to implement and test the identity, inverse and logit links options.
 
-## Example Polio 
+An `R` package `spglarma` is currently under development and will be released on github and cran shortly to accompany an updated version of the paper.
+
+## Installation
+The implmentation is based around using the `fmincon` function of `Matlab`'s optimization toolbox. Saved the following m-files into a working directory: `spglarma`, `spglarmapearson`, `spglarmascore`, `loglikglarma`, `constraintsglarmapearson`, `constraintsglarmascore`, `plotspglarma`, `SPPIT_hist`, `spglm4`, `loglik4`, `constraints4` and then you are good to go.  
+
+A more detailed examples can be found in 
+
+## Polio Example 
 
 Cases of Poliomyelitis in the U.S.
 
@@ -31,8 +38,11 @@ Zeger, S.L (1988) A regression model for time series of counts. Biometrika, 75, 
 
 
 % MA(1,2,5), Log link, Pearson Residuals
-
+```s
 polio = csvread('./Data/polio.csv',1,2);
 Y = polio(:,1);
 X = polio(:,2:7);
 [delta, maxloglik, fitted, iter, phat, sdhat] = spglarma(Y,X,[],[1,2,5],'log');
+```
+
+More details of the example can be found in `GLARMAExample_Polio_github.m`.
